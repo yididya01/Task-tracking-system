@@ -1,32 +1,32 @@
 package com.team.tasktracker;
 
-public abstract class AbstractManager extends AbstractUser {
-    
-    protected String department;
+import java.time.LocalDate;
 
-    public AbstractManager(String firstName, String username, String email, String department) {
-        super(firstName, username, email);      
-        setDepartment(department);              
+public abstract class AbstractManager implements Storable {
+    protected FileHandler fileHandler;
+    protected LogWriter logWriter;
+
+    public AbstractManager(FileHandler fileHandler, LogWriter logWriter) {
+        this.fileHandler = fileHandler;
+        this.logWriter = logWriter;
     }
 
-
-    protected void setDepartment(String department) {
-        if (department != null && !department.trim().isEmpty()) {
-            this.department = department;
-        } else {
-            throw new IllegalArgumentException("Invalid department name.");
-        }
+    protected void logOperation(String operation) {
+        logWriter.logInfo("Operation: " + operation + " at " + AppUtils.formatDate(LocalDate.now()));
     }
 
-    
-    public String getDepartment() {
-        return department;
+    protected int generateId() {
+        return AppUtils.generateId();
     }
 
-    
-    public abstract void manageTeam();
+    protected void handleError(Exception e) {
+        logWriter.logError("Error: " + e.getMessage());
+        throw new RuntimeException("Operation failed: " + e.getMessage());
+    }
 
-
-    @Override
-    public abstract String UserInformation();
+    // Abstract methods for subclasses
+    abstract void save();
+    abstract void load(int id);
+    abstract void delete(int id);
+    abstract boolean validate(Object entity);
 }
