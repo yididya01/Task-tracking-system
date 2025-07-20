@@ -1,5 +1,7 @@
 package com.team.tasktracker;
 
+import java.util.Map;
+
 public abstract class AbstractUser {
     protected String firstName;
     protected String username;
@@ -73,5 +75,5 @@ public abstract class AbstractUser {
     }
 
 
-    abstract String UserInformation();
+    abstract Map<String,String> UserInformation();
 }
