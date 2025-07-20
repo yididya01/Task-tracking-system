@@ -33,5 +33,10 @@ public class StandardUser extends AbstractUser{
         return UserInfo;
 
     }
+
+    @Override
+    public String toString(){
+        return getEmail();   
+    }
     
 }
