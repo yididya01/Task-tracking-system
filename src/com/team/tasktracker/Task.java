@@ -10,16 +10,21 @@ public class Task {
     protected String taskDescription;
     protected StandardUser assignedUser;
     protected int taskPoints;
+    private TaskStatus taskStatus;
     private Instant createdAt;
 
 
-    void setTaskPoint(){
+    private void setTaskPoint(){
         this.taskPoints = 10;
     }
 
-    void setTime(){
+    private void setTime(){
         Instant currentTime = Instant.now();
         this.createdAt = currentTime;
+    }
+
+    private void setTaskStatus(TaskStatus status){
+        this.taskStatus = status;
     }
 
     Task(String taskTitle, String taskDescription, StandardUser assignedUser){
@@ -27,8 +32,13 @@ public class Task {
         this.taskTitle = taskTitle;
         this.taskDescription = taskDescription;
         this.assignedUser = assignedUser;
+        setTaskStatus(TaskStatus.TO_DO);
         setTaskPoint();
         setTime();
+    }
+
+    public void changeStatus(TaskStatus status){
+        setTaskStatus(status);
     }
 
     public Map<String,String> TaskInformation(){
@@ -38,6 +48,7 @@ public class Task {
         TaskInfo.put("Description", taskDescription);
         TaskInfo.put("Assigned User", String.valueOf(assignedUser));
         TaskInfo.put("Points", String.valueOf(taskPoints));
+        TaskInfo.put("Status", String.valueOf(taskStatus));
         TaskInfo.put("Created at(UTC)", String.valueOf(createdAt));
         return TaskInfo;
     }
