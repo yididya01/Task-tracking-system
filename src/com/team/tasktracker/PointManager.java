@@ -2,7 +2,7 @@ package com.team.tasktracker;
 
 public class PointManager {
 
-    // Award points to a user based on task
+
     public void awardPoints(Task task) {
         try {
             StandardUser user = task.assignedUser;
@@ -14,7 +14,7 @@ public class PointManager {
         }
     }
 
-    // Optionally deduct points
+
     public void deductPoints(Task task, float deduction) {
         try {
             StandardUser user = task.assignedUser;

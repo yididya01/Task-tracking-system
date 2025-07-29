@@ -11,7 +11,7 @@ public class TaskManager extends AbstractManager {
         this.taskDAO = taskDAO;
     }
 
-    // Create a task and assign to user
+
     public Task createTask(String title, String description, StandardUser assignedUser) {
         try {
             Task task = new Task(title, description, assignedUser);
@@ -24,7 +24,7 @@ public class TaskManager extends AbstractManager {
         }
     }
 
-    // Get task by ID
+
     public Task getTask(int id) {
         try {
             return taskDAO.findById(id);
@@ -34,7 +34,7 @@ public class TaskManager extends AbstractManager {
         }
     }
 
-    // Update task status
+
     public void updateTaskStatus(int taskId, TaskStatus newStatus) {
         try {
             Task task = getTask(taskId);
@@ -46,7 +46,7 @@ public class TaskManager extends AbstractManager {
         }
     }
 
-    // Delete task
+
     @Override
     public void delete(int id) {
         try {
@@ -59,12 +59,12 @@ public class TaskManager extends AbstractManager {
 
     @Override
     public void save() {
-        // Optional: Save all to file or DB
+        
     }
 
     @Override
     public void load(int id) {
-        // Optional: Load a specific task by ID
+        
     }
 
     @Override
