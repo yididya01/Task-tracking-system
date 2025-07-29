@@ -26,7 +26,10 @@ public abstract class AbstractManager implements Storable {
 
     // Abstract methods for subclasses
     abstract void save();
+
     abstract void load(int id);
+
     abstract void delete(int id);
+
     abstract boolean validate(Object entity);
 }

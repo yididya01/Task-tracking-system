@@ -1,4 +1,4 @@
-package com.team.tasktracker.interfaces;
+package com.team.tasktracker;
 
 public interface PointEarnable {
     int getPointValue();
