@@ -37,6 +37,14 @@ public class Task {
         setTime();
     }
 
+    public int getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
+    }
+
     public void changeStatus(TaskStatus status){
         setTaskStatus(status);
     }
