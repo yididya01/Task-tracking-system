@@ -45,7 +45,6 @@ public class Task {
         this.taskId = taskId;
     }
 
-
     public void changeStatus(TaskStatus status){
         setTaskStatus(status);
     }

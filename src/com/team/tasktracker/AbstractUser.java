@@ -62,7 +62,8 @@ public abstract class AbstractUser {
         }
     }
 
-   public String getFirstName() {
+
+    public String getFirstName() {
         return firstName;
     }
 
