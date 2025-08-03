@@ -62,15 +62,15 @@ public abstract class AbstractUser {
         }
     }
 
-    String getFirstName() {
+   public String getFirstName() {
         return firstName;
     }
 
-    String getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    String getEmail() {
+    public String getEmail() {
         return email;
     }
 
