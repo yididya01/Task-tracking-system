@@ -62,6 +62,7 @@ public abstract class AbstractUser {
         }
     }
 
+
     public String getFirstName() {
         return firstName;
     }
