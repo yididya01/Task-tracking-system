@@ -41,6 +41,11 @@ public class TaskDAO {
     public int getTotalTasks() {
         return taskDatabase.size();
     }
+
+    public Map<Integer, Task> getAllTasks() {
+        return new HashMap<>(taskDatabase);
+    }
+
 }
 
 
