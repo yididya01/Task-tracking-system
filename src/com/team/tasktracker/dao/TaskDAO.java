@@ -5,6 +5,7 @@ import com.team.tasktracker.Task;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class TaskDAO {
 
     // Simulate database with a HashMap
@@ -33,5 +34,14 @@ public class TaskDAO {
     // Delete a task by its ID
     public void delete(int id) {
         taskDatabase.remove(id);
+
+
+    }
+    // Returns the total number of tasks stored
+    public int getTotalTasks() {
+        return taskDatabase.size();
     }
 }
+
+
+
