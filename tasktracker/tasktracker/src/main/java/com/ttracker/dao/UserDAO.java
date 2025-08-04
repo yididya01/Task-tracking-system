@@ -1,6 +1,6 @@
-package src.main.java.com.ttracker.dao;
+package com.ttracker.dao;
 
-import com.team.tasktracker.StandardUser;
+import com.ttracker.models.StandardUser;
 
 import java.util.HashMap;
 import java.util.Map;

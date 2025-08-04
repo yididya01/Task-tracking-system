@@ -1,4 +1,4 @@
-package src.main.java.com.ttracker.service;
+package com.ttracker.service;
 
 // import src.main.java.com.ttracker.models.StandardUser;
 // import src.main.java.com.ttracker.models.Task;

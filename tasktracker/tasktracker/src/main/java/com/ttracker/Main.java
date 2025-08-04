@@ -1,4 +1,4 @@
-package src.main.java.com.ttracker;
+package com.ttracker;
 
 public class Main {
     public static void main(String[] args) {

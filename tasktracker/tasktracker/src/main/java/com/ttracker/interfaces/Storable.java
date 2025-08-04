@@ -1,4 +1,4 @@
-package src.main.java.com.ttracker.interfaces;
+package com.ttracker.interfaces;
 
 public interface Storable {
     void saveToFile(String fileName);

@@ -1,4 +1,4 @@
-package src.main.java.com.ttracker.abstracts;
+package com.ttracker.abstracts;
 
 import java.util.Map;
 

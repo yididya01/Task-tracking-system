@@ -1,4 +1,4 @@
-package src.main.java.com.ttracker.models;
+package com.ttracker.models;
 
 public enum UserType {
     ADMIN(true),

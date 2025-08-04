@@ -1,4 +1,4 @@
-package com.team.tasktracker.ui;
+package com.ttracker.ui;
 
 import java.awt.Color;
 

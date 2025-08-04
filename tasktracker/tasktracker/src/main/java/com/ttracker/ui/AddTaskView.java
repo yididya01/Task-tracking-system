@@ -1,6 +1,5 @@
-package com.team.tasktracker.ui;
+package com.ttracker.ui;
 
-import com.team.tasktracker.ui.AppColors;
 
 import javax.swing.*;
 import java.awt.*;

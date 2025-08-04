@@ -1,4 +1,4 @@
-package src.main.java.com.ttracker.service;
+package com.ttracker.service;
 
 // import java.util.List;
 
