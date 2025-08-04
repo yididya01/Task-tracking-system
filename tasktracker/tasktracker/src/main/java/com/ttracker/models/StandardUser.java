@@ -17,8 +17,8 @@ public class StandardUser extends AbstractUser{
         return taskPoints;
     }
 
-    StandardUser(String firstName, String username, String email){
-        super(firstName, username, email);
+    StandardUser(String firstName, String password, String email){
+        super(firstName, password, email);
         setTaskPoints(taskPoints);
         standardUser = UserType.STANDARD;    
     }
@@ -28,7 +28,7 @@ public class StandardUser extends AbstractUser{
         Map<String,String> UserInfo = new HashMap<>();
         UserInfo.put("UserType",String.valueOf(standardUser));
         UserInfo.put("First Name", getFirstName());
-        UserInfo.put("Username", getUsername());
+        UserInfo.put("Username", getPassword());
         UserInfo.put("Email", getEmail());
         UserInfo.put("Points",String.valueOf(getTaskPoints()));
 

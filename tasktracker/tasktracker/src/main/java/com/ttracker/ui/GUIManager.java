@@ -1,6 +1,9 @@
 package com.ttracker.ui;
 
 import javax.swing.*;
+
+import com.ttracker.dao.TaskDAO;
+
 import java.awt.*;
 
 public class GUIManager {
@@ -131,30 +134,40 @@ public class GUIManager {
         exitButton.addActionListener(e -> System.exit(0));
 
         addTaskView.getAddButton().addActionListener(e -> {
-            String title = addTaskView.getTitleInput().trim();
-            String desc = addTaskView.getDescriptionInput().trim();
+            String taskTitle = addTaskView.getTitleInput().trim();
+            String taskDesc = addTaskView.getDescriptionInput().trim();
+            Integer user = addTaskView.getUserIDInput();
+            String dueDate = addTaskView.getDueDateInput().trim();
 
-            if (title.isEmpty()) {
-                addTaskView.getMessageLabel().setText("Title cannot be empty.");
+            if (taskTitle.isEmpty() || taskDesc.isEmpty() || dueDate.isEmpty()) {
+                addTaskView.getMessageLabel().setText("Incorrect Form!!! Please enter valid input");
                 addTaskView.getMessageLabel().setForeground(AppColors.ERROR);
+                
+                JOptionPane.showMessageDialog(addTaskView, "Incorrect Form!!! Please enter valid input", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            else{
+                    try{
 
-            // Clear message label on success
-            addTaskView.getMessageLabel().setText(" ");
+                        TaskDAO.addTaskDAO(taskTitle, taskDesc, user, dueDate);  
+                        JOptionPane.showMessageDialog(addTaskView, "Task Added Succesfully!!!","success",JOptionPane.INFORMATION_MESSAGE);
+                        addTaskView.clearFields();
+                        for (String[] rowData : TaskDAO.getAllTasksDAO()) {
+                            taskView.addTaskToTable(rowData[1], rowData[6],rowData[4]);
+                         }
+                        cardLayout.show(contentPanel, "Tasks");
+                    }
+                    catch(Error er){
+                        
+                addTaskView.getMessageLabel().setText("There was a problem when trying to add task to database!!!");
+                addTaskView.getMessageLabel().setForeground(AppColors.ERROR);
+                           er.getMessage();
+                    }
 
-            // Add to TaskView table
-            String status = "Pending";  // default or from UI if you want later
-            taskView.addTaskToTable(title, status);
+                    
+                    
 
-            // Clear AddTaskView fields after adding
-            addTaskView.clearFields();
-
-            // Show success message in TaskView or AddTaskView
-            taskView.showMessage("Task added successfully!", AppColors.SUCCESS);
-
-            // Optionally switch to TaskView tab
-            cardLayout.show(contentPanel, "Tasks");
+                }
         });
 
     }
