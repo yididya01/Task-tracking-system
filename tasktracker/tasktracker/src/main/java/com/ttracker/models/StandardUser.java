@@ -1,6 +1,8 @@
-package src.main.java.com.ttracker;
+package src.main.java.com.ttracker.models;
 import java.util.HashMap;
 import java.util.Map;
+
+import src.main.java.com.ttracker.abstracts.AbstractUser;
 
 public class StandardUser extends AbstractUser{
     private float taskPoints=0;

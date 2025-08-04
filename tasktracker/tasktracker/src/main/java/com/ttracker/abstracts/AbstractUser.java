@@ -1,4 +1,4 @@
-package src.main.java.com.ttracker;
+package src.main.java.com.ttracker.abstracts;
 
 import java.util.Map;
 
@@ -7,7 +7,7 @@ public abstract class AbstractUser {
     protected String username;
     protected String email;
 
-    AbstractUser(String firstName, String username, String email) {
+    public AbstractUser(String firstName, String username, String email) {
         this.setFirstName(firstName);
         this.setUsername(username);
         this.setEmail(email);
@@ -76,5 +76,5 @@ public abstract class AbstractUser {
     }
 
 
-    abstract Map<String,String> UserInformation();
+    public abstract Map<String,String> UserInformation();
 }
