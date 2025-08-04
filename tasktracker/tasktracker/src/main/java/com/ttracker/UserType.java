@@ -1,4 +1,4 @@
-package com.team.tasktracker;
+package src.main.java.com.ttracker;
 
 public enum UserType {
     ADMIN(true),

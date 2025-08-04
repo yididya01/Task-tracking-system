@@ -1,4 +1,4 @@
-package com.team.tasktracker.dao;
+package src.main.java.com.ttracker.dao;
 
 import com.team.tasktracker.Task;
 
