@@ -4,12 +4,12 @@ import java.util.Map;
 
 public abstract class AbstractUser {
     protected String firstName;
-    protected String username;
+    protected String password;
     protected String email;
 
-    public AbstractUser(String firstName, String username, String email) {
+    public AbstractUser(String firstName, String password, String email) {
         this.setFirstName(firstName);
-        this.setUsername(username);
+        this.setPassword(password);
         this.setEmail(email);
 
     }
@@ -45,11 +45,11 @@ public abstract class AbstractUser {
         }
     }
 
-    void setUsername(String username) {
-        if (username != null & username != "" & username.length() > 5) {
-            this.username = username;
+    void setPassword(String password) {
+        if (password != null & password != "" & password.length() > 5) {
+            this.password = password;
         } else {
-            throw new Error("Invalid Username");
+            throw new Error("Invalid Password");
         }
     }
 
@@ -67,8 +67,8 @@ public abstract class AbstractUser {
         return firstName;
     }
 
-    public String getUsername() {
-        return username;
+    public String getPassword() {
+        return password;
     }
 
     public String getEmail() {

@@ -2,6 +2,9 @@ package com.ttracker.ui;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import com.ttracker.dao.TaskDAO;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
@@ -59,7 +62,7 @@ public class TaskView extends JPanel {
         add(formPanel, BorderLayout.SOUTH);
 
         // Table
-        String[] columnNames = {"Task Title", "Status"};
+        String[] columnNames = {"Title", "Due Date","Status"};
         tableModel = new DefaultTableModel(columnNames, 0);
         taskTable = new JTable(tableModel);
         taskTable.setFillsViewportHeight(true);
@@ -68,6 +71,11 @@ public class TaskView extends JPanel {
         taskTable.setGridColor(AppColors.PRIMARY_LIGHT);
         taskTable.setSelectionBackground(AppColors.PRIMARY_DARK);
         taskTable.setSelectionForeground(Color.WHITE);
+
+        for (String[] rowData : TaskDAO.getAllTasksDAO()) {
+                addTaskToTable(rowData[1], rowData[6],rowData[4]);
+            }
+                        
 
         JScrollPane tableScrollPane = new JScrollPane(taskTable);
         tableScrollPane.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
@@ -96,8 +104,8 @@ public class TaskView extends JPanel {
             timer.start();
         });
     }
-    public void addTaskToTable(String title, String status) {
-        tableModel.addRow(new Object[]{title, status});
+    public void addTaskToTable(String title,String due_date ,String status) {
+        tableModel.addRow(new Object[]{title,due_date, status});
     }
 
     // → ADD: Helper method to show message with color and auto-clear after 3 seconds

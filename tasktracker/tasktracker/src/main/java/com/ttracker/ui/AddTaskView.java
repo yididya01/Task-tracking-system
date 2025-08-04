@@ -2,15 +2,16 @@ package com.ttracker.ui;
 
 
 import javax.swing.*;
+
+
 import java.awt.*;
 
 public class AddTaskView extends JPanel {
 
     private final JTextField titleField;
     private final JTextArea descriptionArea;
-    private final JComboBox<String> priorityCombo;
+    private final JSpinner user_id;
     private final JTextField dueDateField;
-    private final JComboBox<String> categoryCombo;
     private final JButton addButton;
 
     public AddTaskView() {
@@ -36,23 +37,19 @@ public class AddTaskView extends JPanel {
         descriptionArea = new JTextArea(3, 20);
         JScrollPane descScroll = new JScrollPane(descriptionArea);
 
-        JLabel priorityLabel = new JLabel("Priority:");
-        priorityLabel.setForeground(AppColors.TEXT);
-        priorityCombo = new JComboBox<>(new String[]{"Low", "Medium", "High"});
+        JLabel assigned_user = new JLabel("Assigned User ID:");
+        assigned_user.setForeground(AppColors.TEXT);
+        SpinnerModel model = new SpinnerNumberModel(1, 0, 100, 1);
+        user_id = new JSpinner(model);
 
         JLabel dueDateLabel = new JLabel("Due Date (YYYY-MM-DD):");
         dueDateLabel.setForeground(AppColors.TEXT);
         dueDateField = new JTextField();
 
-        JLabel categoryLabel = new JLabel("Category:");
-        categoryLabel.setForeground(AppColors.TEXT);
-        categoryCombo = new JComboBox<>(new String[]{"Work", "Personal", "Study", "Other"});
-
         formPanel.add(titleLabel);     formPanel.add(titleField);
         formPanel.add(descLabel);      formPanel.add(descScroll);
-        formPanel.add(priorityLabel);  formPanel.add(priorityCombo);
+        formPanel.add(assigned_user);  formPanel.add(user_id);
         formPanel.add(dueDateLabel);   formPanel.add(dueDateField);
-        formPanel.add(categoryLabel);  formPanel.add(categoryCombo);
 
         add(formPanel, BorderLayout.CENTER);
 
@@ -93,23 +90,18 @@ public class AddTaskView extends JPanel {
         return descriptionArea.getText();
     }
 
-    public String getPriorityInput() {
-        return (String) priorityCombo.getSelectedItem();
-    }
-
     public String getDueDateInput() {
         return dueDateField.getText();
     }
 
-    public String getCategoryInput() {
-        return (String) categoryCombo.getSelectedItem();
+    public Integer getUserIDInput() {
+        return (Integer) user_id.getValue();
     }
 
     public void clearFields() {
         titleField.setText("");
         descriptionArea.setText("");
-        priorityCombo.setSelectedIndex(0);
+        user_id.setValue(1);
         dueDateField.setText("");
-        categoryCombo.setSelectedIndex(0);
     }
 }
