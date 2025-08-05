@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class MainMenu {
 
-    public static void main(String[] args) {
+    public static void launch() {
         // Swing UI must run on Event Dispatch Thread
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Task Tracker");
@@ -17,5 +17,10 @@ public class MainMenu {
             frame.setLocationRelativeTo(null); // center screen
             frame.setVisible(true);
         });
+    }
+
+    public static void main(String[] strings) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'main'");
     }
 }

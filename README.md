@@ -78,7 +78,7 @@ mvn exec:java -Dexec.mainClass="com.ttracker.Main"
 - **TaskDAO.java**: Handles task data operations
 - **PointEarnable.java**: Interface for users earning points
 
----
+--- 
 
 ## 👥 Contributors
 
@@ -86,7 +86,5 @@ mvn exec:java -Dexec.mainClass="com.ttracker.Main"
 - Kidus
 - Yididya
 - Ragad
-- Fraol
-- Nahom
-
+- Siraj
 ---
