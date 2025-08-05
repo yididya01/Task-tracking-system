@@ -5,9 +5,12 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import com.ttracker.dao.TaskDAO;
+import com.ttracker.dao.UserDAO;
+import com.ttracker.util.FileLogger;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Arrays;
 
 public class TaskView extends JPanel {
 
@@ -28,6 +31,34 @@ public class TaskView extends JPanel {
         titleLabel.setForeground(AppColors.TEXT);
         titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
         add(titleLabel, BorderLayout.NORTH);
+
+        //Print File
+        JButton printButton = new JButton("Print");
+        printButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        printButton.setMaximumSize(new Dimension(180, 45));
+        printButton.setFocusPainted(false);
+        printButton.setBackground(AppColors.PRIMARY);
+        printButton.setForeground(Color.WHITE);
+        printButton.setFont(new Font("SansSerif", Font.BOLD, 15));
+        printButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        add(printButton, BorderLayout.NORTH);
+
+        printButton.addActionListener(e -> {
+            String cur_email = RegistrationAndLogin.getCurrentEmail();
+            Integer user_id  = UserDAO.getUserIDByEmail(cur_email);
+            try{
+                for (String[] rowData : TaskDAO.getAllUserTasksDAO(user_id)) {
+                String result = Arrays.toString(rowData);
+                FileLogger.log(result);         
+                         }
+            JOptionPane.showMessageDialog(TaskView.this,"File has been Written Succesfully!");
+
+            }catch(Error err){
+                err.getMessage();
+                JOptionPane.showMessageDialog( TaskView.this,"File has been Written Succesfully!");
+            }
+            
+        });
 
         // Message Label
         messageLabel = new JLabel(" ");
@@ -63,7 +94,7 @@ public class TaskView extends JPanel {
         add(formPanel, BorderLayout.SOUTH);
 
         // Table
-        String[] columnNames = {"Title", "Due Date","Status"};
+        String[] columnNames = {"ID","Title", "Due Date","Status","Change_Status"};
         tableModel = new DefaultTableModel(columnNames, 0);
         taskTable = new JTable(tableModel);
         taskTable.setFillsViewportHeight(true);
@@ -74,12 +105,15 @@ public class TaskView extends JPanel {
         taskTable.setSelectionForeground(Color.WHITE);
 
         statusComboBox = new JComboBox<>(new String[]{"TO_DO", "IN_PROGRESS", "BLOCKED","CANCELLED","OVERDUE","DONE"});
-        TableColumn taskStatusColumn = taskTable.getColumnModel().getColumn(2);
+        TableColumn taskStatusColumn = taskTable.getColumnModel().getColumn(3);
         DefaultCellEditor editor = new DefaultCellEditor(statusComboBox);
         taskStatusColumn.setCellEditor(editor);
 
-        for (String[] rowData : TaskDAO.getAllTasksDAO()) {
-                addTaskToTable(rowData[1], rowData[6]);
+        String cur_email = RegistrationAndLogin.getCurrentEmail();
+        Integer user_id  = UserDAO.getUserIDByEmail(cur_email);
+
+        for (String[] rowData : TaskDAO.getAllUserTasksDAO(user_id)) {
+                addTaskToTable(rowData[0],rowData[1], rowData[6],rowData[4]);
             }
                         
 
@@ -110,8 +144,8 @@ public class TaskView extends JPanel {
             timer.start();
         });
     }
-    public void addTaskToTable(String title,String due_date) {
-        tableModel.addRow(new Object[]{title,due_date});
+    public void addTaskToTable(String Id,String title,String due_date,String task_status) {
+        tableModel.addRow(new Object[]{Id,title,due_date,task_status});
     }
 
     // → ADD: Helper method to show message with color and auto-clear after 3 seconds

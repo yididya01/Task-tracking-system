@@ -1,7 +1,14 @@
 package com.ttracker.ui;
 
 import javax.swing.*;
+
+import com.ttracker.dao.TaskDAO;
+import com.ttracker.dao.UserDAO;
+import com.ttracker.util.FileLogger;
+
 import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
 
 public class DashboardView extends JPanel {
 
@@ -26,13 +33,18 @@ public class DashboardView extends JPanel {
         gbc.weighty = 1;
 
         // Task Completed Card
-        JPanel taskCard = createCard("Tasks Completed", "12");
+        String cur_email = RegistrationAndLogin.getCurrentEmail();
+        Integer user_id  = UserDAO.getUserIDByEmail(cur_email);
+        List<String[]> taskCreated = TaskDAO.getAllUserTasksDAO(user_id);
+        int taskCreatedSize = taskCreated.size();
+        String taskCrString = String.valueOf(taskCreatedSize);
+        JPanel taskCard = createCard("Tasks", taskCrString);
         gbc.gridx = 0;
         gbc.gridy = 0;
         cardPanel.add(taskCard, gbc);
 
         // Points Earned Card
-        JPanel pointsCard = createCard("Points Earned", "350");
+        JPanel pointsCard = createCard("Points Earned", taskCrString);
         gbc.gridx = 1;
         cardPanel.add(pointsCard, gbc);
 
