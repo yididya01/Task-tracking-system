@@ -93,15 +93,17 @@ public class TaskDAO {
         }
     }
     
-    public static void getAllUserTasksDAO(int user_id) {
+    public static List<String[]> getAllUserTasksDAO(int user_id) {
         String url = "jdbc:sqlite:database.db";
         String sql = "SELECT * FROM Tasks WHERE user_id = ?";
- 
+        
+        List<String[]> list = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt = conn.prepareStatement(sql)
              ) {
                 pstmt.setInt(1, user_id);
                 java.sql.ResultSet rs = pstmt.executeQuery();
+                int columnCount = rs.getMetaData().getColumnCount();
  
             while (rs.next()) {
                 System.out.println(rs.getInt("id") + "\t" +
@@ -111,10 +113,17 @@ public class TaskDAO {
                         rs.getString("task_status") + "\t" +
                         rs.getString("task_points") + "\t" +
                         rs.getString("created_at"));
+                        String[] row = new String[columnCount];
+                        for (int i = 0; i < columnCount; i++) {
+                            row[i] = rs.getString(i + 1);
+                            }
+                            list.add(row);
             }
+            return list;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return list;
     }
 
 }

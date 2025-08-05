@@ -139,7 +139,7 @@ public class GUIManager {
             String taskDesc = addTaskView.getDescriptionInput().trim();
             String dueDate = addTaskView.getDueDateInput().trim();
             String cur_email = RegistrationAndLogin.getCurrentEmail();
-            Integer user_id  = UserDAO.getUserIDByEmail(cur_email);
+            int user_id  = UserDAO.getUserIDByEmail(cur_email);
 
             if (taskTitle.isEmpty() || taskDesc.isEmpty() || dueDate.isEmpty()) {
                 addTaskView.getMessageLabel().setText("Incorrect Form!!! Please enter valid input");
@@ -154,10 +154,12 @@ public class GUIManager {
                         TaskDAO.addTaskDAO(taskTitle, taskDesc, user_id, dueDate);  
                         JOptionPane.showMessageDialog(addTaskView, "Task Added Succesfully!!!","success",JOptionPane.INFORMATION_MESSAGE);
                         addTaskView.clearFields();
-                        for (String[] rowData : TaskDAO.getAllTasksDAO()) {
-                            taskView.addTaskToTable(rowData[1], rowData[6]);
+                        for (String[] rowData : TaskDAO.getAllUserTasksDAO(user_id)) {
+                            taskView.addTaskToTable(rowData[0],rowData[1], rowData[6],rowData[4]);
                          }
                         cardLayout.show(contentPanel, "Tasks");
+                        contentPanel.revalidate();
+                        contentPanel.repaint();
                     }
                     catch(Error er){
                         
