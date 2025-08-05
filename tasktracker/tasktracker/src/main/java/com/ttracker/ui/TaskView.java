@@ -2,6 +2,7 @@ package com.ttracker.ui;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import com.ttracker.dao.TaskDAO;
 
@@ -72,8 +73,13 @@ public class TaskView extends JPanel {
         taskTable.setSelectionBackground(AppColors.PRIMARY_DARK);
         taskTable.setSelectionForeground(Color.WHITE);
 
+        statusComboBox = new JComboBox<>(new String[]{"TO_DO", "IN_PROGRESS", "BLOCKED","CANCELLED","OVERDUE","DONE"});
+        TableColumn taskStatusColumn = taskTable.getColumnModel().getColumn(2);
+        DefaultCellEditor editor = new DefaultCellEditor(statusComboBox);
+        taskStatusColumn.setCellEditor(editor);
+
         for (String[] rowData : TaskDAO.getAllTasksDAO()) {
-                addTaskToTable(rowData[1], rowData[6],rowData[4]);
+                addTaskToTable(rowData[1], rowData[6]);
             }
                         
 
@@ -104,8 +110,8 @@ public class TaskView extends JPanel {
             timer.start();
         });
     }
-    public void addTaskToTable(String title,String due_date ,String status) {
-        tableModel.addRow(new Object[]{title,due_date, status});
+    public void addTaskToTable(String title,String due_date) {
+        tableModel.addRow(new Object[]{title,due_date});
     }
 
     // → ADD: Helper method to show message with color and auto-clear after 3 seconds

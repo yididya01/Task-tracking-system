@@ -12,6 +12,7 @@ public class RegistrationAndLogin extends JFrame {
 
     private static final String LOGIN_PANEL = "Login Panel";
     private static final String REGISTRATION_PANEL = "Registration Panel";
+    private static String CURRENT_EMAIL;
     private JPanel cardPanel;
     private CardLayout cardLayout;
 
@@ -42,6 +43,13 @@ public class RegistrationAndLogin extends JFrame {
 
         // Initially show the login panel
         cardLayout.show(cardPanel, LOGIN_PANEL);
+    }
+
+    public static void setCurrentEmail(String x){
+        CURRENT_EMAIL = x;
+    }
+    public static String getCurrentEmail(){
+        return CURRENT_EMAIL;
     }
 
     private JPanel createLoginPanel() {
@@ -75,6 +83,7 @@ public class RegistrationAndLogin extends JFrame {
 
                 if (loginSuccessful) {
                     JOptionPane.showMessageDialog(RegistrationAndLogin.this, "Login successful!");
+                    setCurrentEmail(user_email);
                     
                     // Close the current window and open the MainFrame
                     dispose(); // Close this JFrame
@@ -141,6 +150,7 @@ public class RegistrationAndLogin extends JFrame {
 
                 else{
                     UserDAO.addUserDAO(first_name, email, password);
+                    setCurrentEmail(email);
 
                     JOptionPane.showMessageDialog(RegistrationAndLogin.this, "Registration successful!");
 

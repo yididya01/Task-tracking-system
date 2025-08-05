@@ -1,13 +1,10 @@
 package com.ttracker.dao;
 
-import com.ttracker.models.StandardUser;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class UserDAO {
 
@@ -81,65 +78,28 @@ public class UserDAO {
         }
     }
 
+    public static Integer getUserIDByEmail(String email){
+         String url = "jdbc:sqlite:database.db";
+         String sql = "SELECT * FROM Users WHERE user_email = ?";
 
+         try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt = conn.prepareStatement(sql)
+             ) {
+                pstmt.setString(1, email);
+                java.sql.ResultSet rs = pstmt.executeQuery();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // Simple in-memory storage of users by email (unique identifier)
-    private Map<String, StandardUser> users = new HashMap<>();
-
-    // Save a new user
-    public void save(StandardUser user) {
-        if (user == null || user.getEmail() == null) {
-            throw new IllegalArgumentException("User or email cannot be null");
+                if (rs.next()) {
+                System.out.println("User Exists: " + rs.getString("first_name"));
+                return rs.getInt("user_id");
+            } else {
+                System.out.println("User not found.");
+                return 0;
+            }
+ 
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return 0;
         }
-        users.put(user.getEmail(), user);
-    }
 
-    // Find a user by email
-    public StandardUser findByEmail(String email) {
-        if (email == null) {
-            return null;
-        }
-        return users.get(email);
-    }
-
-    // Update an existing user
-    public void update(StandardUser user) {
-        if (user == null || user.getEmail() == null) {
-            throw new IllegalArgumentException("User or email cannot be null");
-        }
-        if (!users.containsKey(user.getEmail())) {
-            throw new IllegalArgumentException("User not found: " + user.getEmail());
-        }
-        users.put(user.getEmail(), user);
-    }
-
-    // Delete a user by email
-    public void delete(String email) {
-        if (email == null) {
-            throw new IllegalArgumentException("Email cannot be null");
-        }
-        users.remove(email);
     }
 }

@@ -3,6 +3,7 @@ package com.ttracker.ui;
 import javax.swing.*;
 
 import com.ttracker.dao.TaskDAO;
+import com.ttracker.dao.UserDAO;
 
 import java.awt.*;
 
@@ -136,8 +137,9 @@ public class GUIManager {
         addTaskView.getAddButton().addActionListener(e -> {
             String taskTitle = addTaskView.getTitleInput().trim();
             String taskDesc = addTaskView.getDescriptionInput().trim();
-            Integer user = addTaskView.getUserIDInput();
             String dueDate = addTaskView.getDueDateInput().trim();
+            String cur_email = RegistrationAndLogin.getCurrentEmail();
+            Integer user_id  = UserDAO.getUserIDByEmail(cur_email);
 
             if (taskTitle.isEmpty() || taskDesc.isEmpty() || dueDate.isEmpty()) {
                 addTaskView.getMessageLabel().setText("Incorrect Form!!! Please enter valid input");
@@ -149,11 +151,11 @@ public class GUIManager {
             else{
                     try{
 
-                        TaskDAO.addTaskDAO(taskTitle, taskDesc, user, dueDate);  
+                        TaskDAO.addTaskDAO(taskTitle, taskDesc, user_id, dueDate);  
                         JOptionPane.showMessageDialog(addTaskView, "Task Added Succesfully!!!","success",JOptionPane.INFORMATION_MESSAGE);
                         addTaskView.clearFields();
                         for (String[] rowData : TaskDAO.getAllTasksDAO()) {
-                            taskView.addTaskToTable(rowData[1], rowData[6],rowData[4]);
+                            taskView.addTaskToTable(rowData[1], rowData[6]);
                          }
                         cardLayout.show(contentPanel, "Tasks");
                     }
