@@ -95,6 +95,7 @@ public class GUIManager {
         contentPanel.add(taskView, TASKS);
         contentPanel.add(gamificationView, GAMIFICATION);
         contentPanel.add(addTaskView, ADD_TASK);
+        
     }
 
     private JButton createNavButton(String text) {
@@ -127,10 +128,27 @@ public class GUIManager {
     }
 
     private void setupListeners() {
-        dashboardButton.addActionListener(e -> cardLayout.show(contentPanel, DASHBOARD));
-        tasksButton.addActionListener(e -> cardLayout.show(contentPanel, TASKS));
-        gamificationButton.addActionListener(e -> cardLayout.show(contentPanel, GAMIFICATION));
-        addTaskButton.addActionListener(e -> cardLayout.show(contentPanel, ADD_TASK));
+        dashboardButton.addActionListener(e ->{
+              cardLayout.show(contentPanel, DASHBOARD);
+              contentPanel.revalidate();
+              contentPanel.repaint();
+            });
+        tasksButton.addActionListener(e ->{
+            cardLayout.show(contentPanel, TASKS);
+            contentPanel.revalidate();
+            contentPanel.repaint();
+
+        });
+        gamificationButton.addActionListener(e -> {
+        cardLayout.show(contentPanel, GAMIFICATION);
+        contentPanel.revalidate();
+        contentPanel.repaint();
+        });
+        addTaskButton.addActionListener(e -> {
+            cardLayout.show(contentPanel, ADD_TASK);
+            contentPanel.revalidate();
+            contentPanel.repaint();
+        });
 
         exitButton.addActionListener(e -> System.exit(0));
 
@@ -154,9 +172,9 @@ public class GUIManager {
                         TaskDAO.addTaskDAO(taskTitle, taskDesc, user_id, dueDate);  
                         JOptionPane.showMessageDialog(addTaskView, "Task Added Succesfully!!!","success",JOptionPane.INFORMATION_MESSAGE);
                         addTaskView.clearFields();
-                        for (String[] rowData : TaskDAO.getAllUserTasksDAO(user_id)) {
-                            taskView.addTaskToTable(rowData[0],rowData[1], rowData[6],rowData[4]);
-                         }
+                        // for (String[] rowData : TaskDAO.getAllUserTasksDAO(user_id)) {
+                        //     taskView.addTaskToTable(rowData[0],rowData[1], rowData[6],rowData[4]);
+                        //  }
                         cardLayout.show(contentPanel, "Tasks");
                         contentPanel.revalidate();
                         contentPanel.repaint();

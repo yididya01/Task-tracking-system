@@ -1,6 +1,7 @@
 package com.ttracker.ui;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -17,6 +18,7 @@ public class TaskView extends JPanel {
     private JTextField taskTitleField;
     private JComboBox<String> statusComboBox;
     private JButton addTaskButton;
+    private JButton printTasks;
     private JTable taskTable;
     private DefaultTableModel tableModel;
     private JLabel messageLabel;
@@ -51,11 +53,11 @@ public class TaskView extends JPanel {
                 String result = Arrays.toString(rowData);
                 FileLogger.log(result);         
                          }
-            JOptionPane.showMessageDialog(TaskView.this,"File has been Written Succesfully!");
-
+                         
+                JOptionPane.showMessageDialog(TaskView.this, "File written Succesfully!!!","success",JOptionPane.INFORMATION_MESSAGE);
             }catch(Error err){
                 err.getMessage();
-                JOptionPane.showMessageDialog( TaskView.this,"File has been Written Succesfully!");
+                JOptionPane.showMessageDialog(TaskView.this, "There was an error", "Error", JOptionPane.ERROR_MESSAGE);
             }
             
         });
