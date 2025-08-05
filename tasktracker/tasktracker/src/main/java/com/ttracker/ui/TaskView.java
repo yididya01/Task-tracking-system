@@ -1,7 +1,6 @@
 package com.ttracker.ui;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -11,6 +10,7 @@ import com.ttracker.util.FileLogger;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 
 public class TaskView extends JPanel {
@@ -18,7 +18,9 @@ public class TaskView extends JPanel {
     private JTextField taskTitleField;
     private JComboBox<String> statusComboBox;
     private JButton addTaskButton;
-    private JButton printTasks;
+    public static String selectedTaskID;
+    public static Integer newSelectedTaskID;
+    public static String selectedStatus;
     private JTable taskTable;
     private DefaultTableModel tableModel;
     private JLabel messageLabel;
@@ -107,10 +109,35 @@ public class TaskView extends JPanel {
         taskTable.setSelectionForeground(Color.WHITE);
 
         statusComboBox = new JComboBox<>(new String[]{"TO_DO", "IN_PROGRESS", "BLOCKED","CANCELLED","OVERDUE","DONE"});
-        TableColumn taskStatusColumn = taskTable.getColumnModel().getColumn(3);
         DefaultCellEditor editor = new DefaultCellEditor(statusComboBox);
+        TableColumn taskStatusColumn = taskTable.getColumnModel().getColumn(4);
         taskStatusColumn.setCellEditor(editor);
 
+            statusComboBox.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int selectedRow = taskTable.getEditingRow();
+                    if (selectedRow != -1) {
+                        selectedStatus = (String) statusComboBox.getSelectedItem();
+                        selectedTaskID = (String) taskTable.getValueAt(selectedRow, 0);
+                        newSelectedTaskID = Integer.parseInt(selectedTaskID);
+                        try{
+                            TaskDAO.updateTaskStatus(newSelectedTaskID, selectedStatus);
+                            JOptionPane.showMessageDialog(TaskView.this, "Task updated Succesfully!!!","success",JOptionPane.INFORMATION_MESSAGE);
+                            System.out.println("task updated");
+
+                        }
+                        catch(Error errr){
+                            errr.getMessage();
+                            JOptionPane.showMessageDialog(TaskView.this, "There was a problem updating task", "Error", JOptionPane.ERROR_MESSAGE);
+                            System.out.println("i cant update the task");
+                        }
+                    }
+                }
+            });
+        
+        
+        
         String cur_email = RegistrationAndLogin.getCurrentEmail();
         Integer user_id  = UserDAO.getUserIDByEmail(cur_email);
 
