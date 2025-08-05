@@ -126,6 +126,26 @@ public class TaskDAO {
         return list;
     }
 
+
+    public static void updateTaskStatus(Integer taskId,String newValue) {
+        String sql = "UPDATE Tasks SET task_status = ? WHERE id = ?";
+
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // Set the new value for the column.
+            pstmt.setString(1, newValue);
+            // Set the ID of the task to be updated.
+            pstmt.setInt(2, taskId);
+
+            // Execute the update operation.
+            int rowsAffected = pstmt.executeUpdate();
+            System.out.println(rowsAffected + " row(s) updated.");
+
+        } catch (SQLException e) {
+            System.err.println("Error updating task: " + e.getMessage());
+        }
+    }
 }
 
 
