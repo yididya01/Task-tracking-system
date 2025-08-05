@@ -82,11 +82,10 @@ mvn exec:java -Dexec.mainClass="com.ttracker.Main"
 
 ## 👥 Contributors
 
-- Abel
-- Kidus
-- Yididya
-- Ragad
-- Fraol
-- Nahom
+- Abel-sevice
+- Kidus-util
+- Yididya-GUI
+- Ragad-dao
+- Siraj-model
 
 ---
