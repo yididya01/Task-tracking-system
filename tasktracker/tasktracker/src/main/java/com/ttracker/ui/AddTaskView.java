@@ -10,7 +10,6 @@ public class AddTaskView extends JPanel {
 
     private final JTextField titleField;
     private final JTextArea descriptionArea;
-    private final JSpinner user_id;
     private final JTextField dueDateField;
     private final JButton addButton;
 
@@ -37,18 +36,12 @@ public class AddTaskView extends JPanel {
         descriptionArea = new JTextArea(3, 20);
         JScrollPane descScroll = new JScrollPane(descriptionArea);
 
-        JLabel assigned_user = new JLabel("Assigned User ID:");
-        assigned_user.setForeground(AppColors.TEXT);
-        SpinnerModel model = new SpinnerNumberModel(1, 0, 100, 1);
-        user_id = new JSpinner(model);
-
         JLabel dueDateLabel = new JLabel("Due Date (YYYY-MM-DD):");
         dueDateLabel.setForeground(AppColors.TEXT);
         dueDateField = new JTextField();
 
         formPanel.add(titleLabel);     formPanel.add(titleField);
         formPanel.add(descLabel);      formPanel.add(descScroll);
-        formPanel.add(assigned_user);  formPanel.add(user_id);
         formPanel.add(dueDateLabel);   formPanel.add(dueDateField);
 
         add(formPanel, BorderLayout.CENTER);
@@ -94,14 +87,9 @@ public class AddTaskView extends JPanel {
         return dueDateField.getText();
     }
 
-    public Integer getUserIDInput() {
-        return (Integer) user_id.getValue();
-    }
-
     public void clearFields() {
         titleField.setText("");
         descriptionArea.setText("");
-        user_id.setValue(1);
         dueDateField.setText("");
     }
 }
